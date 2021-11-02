@@ -1,29 +1,44 @@
-var repoList = document.querySelector('ul');
-var fetchButton = document.getElementById('fetch-button');
+// target HTML elements
+const fetchButton = document.getElementById("fetch-button");
+const reposList = document.getElementById("repos-list");
+const errorMessageContainer = document.getElementById("error-msg");
 
-//getApi function is called when the fetchButton is clicked
+// event handler function for the button click
+const renderRepos = function () {
+  // get data from response
+  const getDataFromResponse = function (response) {
+    // check if the response status is 200
+    if (response.status !== 200) {
+      console.log("ERROR");
+      throw new Error("Something went wrong!!");
+    }
+    return response.json();
+  };
 
-function getApi() {
-  // Insert the API url to get a list of your repos
-  var requestUrl = '';
+  // get list of repos from response
+  const getReposFromData = function (data) {
+    console.log(data);
+  };
 
-  fetch(requestUrl)
-    .then(function (response) {
-      return response.json();
-    })
-    .then(function (data) {
-      //looping over the fetch response and inserting the URL of your repos into a list
-      for (var i = 0; i < data.length; i++) {
-        //Create a list element
-        var listItem = document.createElement('li');
+  // for each repo create and append list item to ul
+  const createAndAppendRepos = function () {};
 
-        //Set the text of the list element to the JSON response's .html_url property
-        listItem.textContent = data[i].html_url;
+  // function for handling errors in fetch response
+  const handleError = function (error) {
+    // get error message
+    const errorMessage = error.message;
 
-        //Append the li element to the id associated with the ul element.
-        repoList.appendChild(listItem);
-      }
-    });
-}
+    // target the message container elemenet and set the text content to the error message
+    errorMessageContainer.textContent = errorMessage;
+  };
 
-fetchButton.addEventListener('click', getApi);
+  // get data from API
+  fetch("https://api.github.com/users/jitasek/repos")
+    .then(getDataFromResponse)
+    .then(getReposFromData)
+    .then(createAndAppendRepos)
+    .catch(handleError);
+};
+
+// add click event listener for the fetch button
+fetchButton.addEventListener("click", renderRepos);
