@@ -15,13 +15,39 @@ const renderRepos = function () {
     return response.json();
   };
 
-  // get list of repos from response
-  const getReposFromData = function (data) {
-    console.log(data);
+  // get list of repos from response = in comes a big response:
+  const getReposFromData = function (repos) {
+    // callback function for map - returns a tiny object of name and url only
+    const getRepo = function (repo) {
+      return {
+        name: repo.name,
+        url: repo.html_url,
+      };
+    };
+    // map through the repos and return the array of tiny objects (i.e. our repos) = condenses the big array into a small one
+    return repos.map(getRepo);
   };
 
   // for each repo create and append list item to ul
-  const createAndAppendRepos = function () {};
+  const createAndAppendRepos = function (repos) {
+    const constructAndAppend = function (repo) {
+      // create li and anchor tag inside that
+      const li = document.createElement("li");
+      const link = document.createElement("a");
+      // set attribute to the anchor tag
+      link.setAttribute("href", repo.url);
+      link.setAttribute("target", "_blank"); // to open each repo link in a new tab
+      // set content to that link
+      link.textContent = repo.name;
+      // append a to li
+      li.append(link);
+      // take that list and append it to my list repository as a child (append li to ul)
+      reposList.appendChild(li);
+    };
+
+    // use foreach
+    repos.forEach(constructAndAppend);
+  };
 
   // function for handling errors in fetch response
   const handleError = function (error) {

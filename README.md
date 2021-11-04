@@ -2,7 +2,7 @@
 
 ## Functionality:
 
-when I click the "Fetch Your User Repos" button, and a list of my GitHub repositories displays on the page.
+when I click the "Fetch Your User Repos" button, a list of my GitHub repositories gets displayed on the page.
 
 <a href="">Link to the deployed app</a>
 
@@ -10,4 +10,4 @@ The aim of this project is to practice working with server side APIs and the fet
 
 ### Mockup:
 
-<img src="./Assets/images/01-solution-screenshot.png">
+<img src="./assets/images/01-solution-screenshot.png">
